@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NBA Projections</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: right; }
+    th { background: #eee; }
+  </style>
+</head>
+<body>
+
+<h1>NBA Projections</h1>
+
+<table id="table">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Projection</th>
+      <th>B1</th>
+      <th>B2</th>
+      <th>B3</th>
+      <th>B4</th>
+      <th>B5</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+fetch("https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLh5a200XmwSi8clm4_3OpzyPu5hjPYeA8lQySUYfMPjpfAlGit5MEYu0jNrihTMHm3ZiHPgWA-_g0509AunSOaJoish4C3XPC5LmED9QdcGawvCcwHNlf8jJsDdmIZmKdFDAnkdqlAns2OiJEPn3SHIg1xiozOWWMbysNgYU3srpXbFqDhPB2G8nOcGE32yvKY3RyoxwsABRyNiqzkyyW9ubmlxBrJiB7u-BzgKLXhW6i5abwO27vXsC0ulZfE7EtqHfao2qPOddvDqeqkU5enlGQLcLQ&lib=MvhlrBzDlQa_mfGlBb_g6zABYYjXM34h2")
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.querySelector("#table tbody");
+    data.forEach(p => {
+      const row = `
+        <tr>
+          <td>${p.player}</td>
+          <td>${p.projection?.toFixed(2)}</td>
+          <td>${p.b1?.toFixed(2)}</td>
+          <td>${p.b2?.toFixed(2)}</td>
+          <td>${p.b3?.toFixed(2)}</td>
+          <td>${p.b4?.toFixed(2)}</td>
+          <td>${p.b5?.toFixed(2)}</td>
+        </tr>`;
+      tbody.insertAdjacentHTML("beforeend", row);
+    });
+  });
+</script>
+
+</body>
+</html>
